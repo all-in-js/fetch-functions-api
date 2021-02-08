@@ -1,7 +1,5 @@
 import deepmerge from 'deepmerge';
 
-const INNER_FETCH_TYPE = 'fetchFnApi';
-
 export default class Fetch {
   constructor(url, commonOption) {
     /**
@@ -33,21 +31,22 @@ export default class Fetch {
 
     /**
      * 合并请求
-     * @param f1,f2,...
+     * {
+     *  'api/user': {
+     *     id: 'a'
+     *   },
+     * }
      */
-    $fetch.combine = function(...fetchs) {
-      if (!fetchs.length) {
+    $fetch.combine = function(fnApiMap) {
+      if (typeof fnApiMap !== 'object') {
         return [];
       }
       const fns = [];
       const vars = [];
-      fetchs.forEach((fetchFnApi) => {
-        const {
-          fnApi,
-          vars: fnVars
-        } = fetchFnApi.type !== INNER_FETCH_TYPE ? {} : fetchFnApi;
+      Object.keys(fnApiMap).forEach((fnApi) => {
+        const params = typeof fnApiMap[fnApi] === 'object' ? fnApiMap[fnApi] : {};
         fns.push(fnApi);
-        vars.push(fnVars);
+        vars.push(params);
       });
 
       return $fetch.post(fns, vars);
@@ -64,9 +63,6 @@ function fnApifetchWrapper(url, fnApi, vars, option) {
       $vars: vars
     })
   });
-  f.fnApi = fnApi;
-  f.vars = vars;
-  f.type = INNER_FETCH_TYPE;
   return f;
 }
 
