@@ -1,0 +1,23 @@
+# fetch-functions-api
+
+简化前端通过 fetch 请求 koa-functions-api
+
+后端需要通过 [koa-functions-api](https://github.com/famanoder/koa-functions-api) 实现 `/api/functions` 接口
+
+```js
+import Fetch from 'fetch-functions-api';
+
+const $fetch = new Fetch('/api/functions');
+
+// GET
+$fetch('api/helloWorld', {});
+
+// POST
+$fetch.post('api/helloWorld', {});
+
+// combine
+$fetch.combine({
+  'api/helloWorld': {},
+  'api/whatelse': {}
+});
+```
