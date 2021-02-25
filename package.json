@@ -1,8 +1,16 @@
 {
-  "name": "fetch-functions-api",
-  "version": "1.0.2",
+  "name": "@all-in-js/fetch-functions-api",
+  "version": "1.0.0",
   "main": "src/index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/all-in-js/fetch-functions-api"
+  },
   "dependencies": {
     "deepmerge": "^4.2.2"
   }
