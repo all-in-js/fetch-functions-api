@@ -64,7 +64,7 @@ function fnApifetchWrapper(url, fnApi, vars, option) {
     })
   }).then((res) => {
     const resContentType = res.headers.get('Content-Type');
-    const contType = resContentType.split(/;\s+/)[0].split(/\//);
+    const contType = resContentType.split(/;\s+/)[0].split(/\//)[1];
 
     if (contType === 'json') {
       return res.json();
