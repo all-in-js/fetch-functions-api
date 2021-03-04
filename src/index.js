@@ -1,5 +1,4 @@
 import deepmerge from 'deepmerge';
-import { fetch } from '../../utils/node_modules/@all-in-js/utils/dist';
 
 export default class Fetch {
   constructor(url, commonOption) {
