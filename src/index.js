@@ -1,4 +1,5 @@
 import deepmerge from 'deepmerge';
+import { fetch } from '../../utils/node_modules/@all-in-js/utils/dist';
 
 export default class Fetch {
   constructor(url, commonOption) {
@@ -16,7 +17,7 @@ export default class Fetch {
     
     /**
      * POST 请求，默认请求json格式数据
-     * @param {strign} fnApi 
+     * @param {strign} fnApi z
      * @param {object} vars 
      */
     $fetch.post = function(fnApi, vars) {
@@ -62,10 +63,20 @@ function fnApifetchWrapper(url, fnApi, vars, option) {
       $fns: fnApi,
       $vars: vars
     })
+  }).then((res) => {
+    const resContentType = res.headers.get('Content-Type');
+    const contType = resContentType.split(/;\s+/)[0].split(/\//);
+
+    if (contType === 'json') {
+      return res.json();
+    }
+    if (contType === 'plain') {
+      return res.text();
+    }
+    return res;
   });
   return f;
 }
-
 // const fetch = new Fetch('url');
 // const f1 = fetch('api/users', {id: 1});
 // const f2 = fetch('api/user', {id: 2});
