@@ -12,7 +12,7 @@ const $fetch = new Fetch('/api/functions');
 // GET
 $fetch('api/helloWorld', {});
 
-// POST
+// POST, 暂时只支持 json
 $fetch.post('api/helloWorld', {});
 
 // combine

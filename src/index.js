@@ -13,6 +13,8 @@ export default class Fetch {
       });
       return fnApifetchWrapper(url, fnApi, vars, option);
     }
+
+    $fetch.get = $fetch;
     
     /**
      * POST 请求，默认请求json格式数据
@@ -55,7 +57,12 @@ export default class Fetch {
   }
 }
 
-function fnApifetchWrapper(url, fnApi, vars, option) {
+function fnApifetchWrapper(url = '/api/functions', fnApi, vars, option) {
+  // 调试请求的 api
+  const debugApi = option.debugApi ? `debuging-api=${fnApi.toString()}` : '';
+  if (option.debugApi) {
+    url += (url.indexOf('?') !== -1 ? '&' : '?') + debugApi;
+  }
   const f = fetch(url, {
     ...option,
     body: JSON.stringify({
@@ -76,14 +83,3 @@ function fnApifetchWrapper(url, fnApi, vars, option) {
   });
   return f;
 }
-// const fetch = new Fetch('url');
-// const f1 = fetch('api/users', {id: 1});
-// const f2 = fetch('api/user', {id: 2});
-
-// f1.then();
-// f2.then();
-
-// const [
-//   res1,
-//   res2
-// ] = fetch.combine(f1, f2);
